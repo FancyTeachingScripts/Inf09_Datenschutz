@@ -222,8 +222,8 @@ jobs:
       # Copy PDFs to the website repository
       - name: Copy PDFs to website
         run: |
-          mkdir -p website/_coll_lessonscripts/demo/
-          cp *.pdf website/_coll_lessonscripts/demo/
+          mkdir -p website/_coll_lessonscripts/inf09_datenschutz/
+          cp *.pdf website/_coll_lessonscripts/inf09_datenschutz/
 
       # Commit and push changes
       - name: Commit and push PDFs
@@ -231,8 +231,8 @@ jobs:
           cd website
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add _coll_lessonscripts/demo/*.pdf
-          git commit -m "Update Demo PDFs from ${{ github.repository }}@${{ github.sha }}" || echo "No changes to commit"
+          git add _coll_lessonscripts/inf09_datenschutz/*.pdf
+          git commit -m "Update Inf09_Datenschutz PDFs from ${{ github.repository }}@${{ github.sha }}" || echo "No changes to commit"
           git push
 
 
