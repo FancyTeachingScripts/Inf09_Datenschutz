@@ -4,11 +4,10 @@
         {
             "label": "compile-single-tex",
             "type": "shell",
-            "command": "lualatex",
+            "command": "/bin/bash",
             "args": [
-                "-interaction=nonstopmode",
-                "-output-directory=build",
-                "main.tex"
+                "-c",
+                "mkdir -p build && lualatex -interaction=nonstopmode -output-directory=build main.tex"
             ],
             "group": "build",
             "presentation": {
