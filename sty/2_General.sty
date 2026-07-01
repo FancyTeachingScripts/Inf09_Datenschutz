@@ -454,3 +454,9 @@ escapeinside={(*@}{@*)}
 		%pdftitle={\Titeltext},
 	}
 \fi
+
+\newenvironment{scaletable}[1][\ifbeamer 0.38\textheight\else 0.9\textheight\fi]{%
+  \begin{adjustbox}{max width=\textwidth, max height=#1, keepaspectratio}%
+}{%
+  \end{adjustbox}%
+}
