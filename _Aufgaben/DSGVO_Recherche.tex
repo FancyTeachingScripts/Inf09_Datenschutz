@@ -3,6 +3,15 @@ Recherchiere, was die \emphColA{7 Datenschutzgrundsätze aus Artikel 5} der DSGV
 
 \vspace{0.3cm}
 
+\newdimen\mymaxheight
+\ifbeamer
+  \mymaxheight=0.38\textheight
+\else
+  \mymaxheight=0.9\textheight
+\fi
+\typeout{DEBUG: mymaxheight is \the\mymaxheight}
+
+\maxsizebox{\textwidth}{\mymaxheight}{%
 \begin{tabular}{p{0.05\textwidth}||p{0.3\textwidth}|p{0.55\textwidth}}
 
 Nr. & Titel & Inhalt \\ \hline\hline
@@ -62,5 +71,6 @@ Nr. & Titel & Inhalt \\ \hline\hline
 &&\\
 &&\\
 \fi
-\end{tabular}
+\end{tabular}%
+}
 }
