@@ -206,6 +206,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifbeamer
   \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
+  \makeatletter
+  \setlength\beamer@paperwidth{21cm}
+  \setlength\beamer@paperheight{11.81cm}
+  \makeatother
+  \geometry{
+    paperwidth=21cm,
+    paperheight=11.81cm,
+    hmargin=0cm,
+    vmargin=0cm,
+    head=0cm,
+    headsep=0pt,
+    foot=0cm
+  }
 \else
   \documentclass[a4paper]{article}
 \fi 

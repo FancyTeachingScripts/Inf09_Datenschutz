@@ -9,12 +9,12 @@
 
 \usetheme{moloch}
 \usecolortheme{owl}
+\setbeamertemplate{frametitle}{}
 
 \newcounter{prevsection}
 \setcounter{prevsection}{0}
 \newcommand{\prevsection}{0}
 
-\geometry{paperwidth=21cm, paperheight=11.81cm}
 \setbeamersize{text margin left=0.0cm, text margin right=0.0cm}
 \setbeamertemplate{page number in head/foot}{}
 
@@ -89,6 +89,10 @@
 }
 
 \AtBeginDocument{
+  \ifdefined\pdfpagewidth\pdfpagewidth=21cm \fi
+  \ifdefined\pdfpageheight\pdfpageheight=11.81cm \fi
+  \ifdefined\pagewidth\pagewidth=21cm \fi
+  \ifdefined\pageheight\pageheight=11.81cm \fi
   \arrayrulecolor{\TFarbe}
   \begin{frame}
     \centering

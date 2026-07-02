@@ -5,11 +5,21 @@ Write-Host "=== Parallel LaTeX Build Script ===" -ForegroundColor Magenta
 $texFiles = Get-ChildItem -Path ".\main\*.tex"
 Write-Host "Found $($texFiles.Count) TeX files to compile in parallel..." -ForegroundColor Cyan
 
+# Detect system Moloch theme directory if present
+$molochPath = kpsewhich beamerthememoloch.sty 2>$null
+$tectonicArgs = @("-o", ".", "-Z", "search-path=.", "-Z", "search-path=sty")
+if ($molochPath) {
+    $molochDir = Split-Path -Path $molochPath -Parent
+    $tectonicArgs += @("-Z", "search-path=$molochDir")
+    Write-Host "Detected system Moloch theme at: $molochDir" -ForegroundColor Green
+}
+
 # Start compilation
 $processes = @()
 foreach ($file in $texFiles) {
     Write-Host "Compiling $($file.Name) with tectonic..." -ForegroundColor Yellow
-    $process = Start-Process -FilePath "tectonic" -ArgumentList "-o", ".", "-Z", "search-path=.", "-Z", "search-path=sty", $file.FullName -PassThru -NoNewWindow -Wait:$false
+    $argsForFile = $tectonicArgs + $file.FullName
+    $process = Start-Process -FilePath "tectonic" -ArgumentList $argsForFile -PassThru -NoNewWindow -Wait:$false
     $processes += @{Process=$process; FileName=$file.Name}
 }
 
