@@ -7,7 +7,7 @@
             "command": "/bin/bash",
             "args": [
                 "-c",
-                "mkdir -p build && lualatex -interaction=nonstopmode -output-directory=build main.tex"
+                "mkdir -p build && tectonic -o build main.tex"
             ],
             "group": "build",
             "presentation": {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Parallel LaTeX Build Script for Linux with LuaLaTeX
-echo "=== Parallel LaTeX Build Script (LuaLaTeX) ==="
+# Parallel LaTeX Build Script for Linux with Tectonic
+echo "=== Parallel LaTeX Build Script (Tectonic) ==="
 
 # Create build directory if it doesn't exist
 mkdir -p build
@@ -16,45 +16,33 @@ if [ ${#texFiles[@]} -eq 0 ]; then
     exit 0
 fi
 
-# Function to compile a single file with two passes
+# Function to compile a single file with tectonic
 compile_file() {
     local file="$1"
     local basename=$(basename "$file")
-    echo "Starting first compilation pass of ${basename}..."
+    echo "Compiling ${basename} with tectonic..."
     
-    # First pass
-    lualatex -interaction=nonstopmode -output-directory=build "$file" 2>&1
-    local exitCode1=$?
-    if [ $exitCode1 -eq 0 ]; then
-        echo "First pass completed for ${basename}"
+    tectonic -o build "$file" 2>&1
+    local exitCode=$?
+    if [ $exitCode -eq 0 ]; then
+        echo "Successfully compiled ${basename}"
     else
-        echo "First pass failed for ${basename} (exit code: ${exitCode1})"
-        return $exitCode1
-    fi
-    
-    # Second pass (for references/TOC etc.)
-    echo "Starting second compilation pass of ${basename}..."
-    lualatex -interaction=nonstopmode -output-directory=build "$file" 2>&1
-    local exitCode2=$?
-    if [ $exitCode2 -eq 0 ]; then
-        echo "Successfully compiled ${basename} (2 passes)"
-    else
-        echo "Failed second pass for ${basename} (exit code: ${exitCode2})"
-        return $exitCode2
+        echo "Compilation failed for ${basename} (exit code: ${exitCode})"
+        return $exitCode
     fi
     
     return 0
 }
 
-# Start first compilation pass for all files in parallel
+# Start compilation for all files in parallel
 declare -A pids
 for file in "${texFiles[@]}"; do
     compile_file "$file" &
     pids["$file"]=$!
 done
 
-# Wait for all first passes to complete
-echo "Waiting for first compilation pass to complete..."
+# Wait for all compilations to complete
+echo "Waiting for compilations to complete..."
 all_success=true
 for file in "${texFiles[@]}"; do
     wait "${pids[$file]}"
