@@ -79,7 +79,7 @@ jobs:
       # Compile LaTeX document to PDF using Tectonic
       - name: Compile ${{ matrix.texfile }}
         run: |
-          tectonic -o . main/${{ matrix.texfile }}
+          tectonic -o . -Z search-path=. -Z search-path=sty main/${{ matrix.texfile }}
 
       # Get the base filename without extension
       - name: Get base filename

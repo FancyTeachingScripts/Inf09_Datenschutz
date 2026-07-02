@@ -16,13 +16,22 @@ if [ ${#texFiles[@]} -eq 0 ]; then
     exit 0
 fi
 
+# Detect system Moloch theme directory if present
+MOLOCH_PATH=$(kpsewhich beamerthememoloch.sty 2>/dev/null)
+TECTONIC_SEARCH_FLAGS="-Z search-path=. -Z search-path=sty"
+if [ -n "$MOLOCH_PATH" ]; then
+    MOLOCH_DIR=$(dirname "$MOLOCH_PATH")
+    TECTONIC_SEARCH_FLAGS="${TECTONIC_SEARCH_FLAGS} -Z search-path=${MOLOCH_DIR}"
+    echo "Detected system Moloch theme at: ${MOLOCH_DIR}"
+fi
+
 # Function to compile a single file with tectonic
 compile_file() {
     local file="$1"
     local basename=$(basename "$file")
     echo "Compiling ${basename} with tectonic..."
     
-    tectonic -o build "$file" 2>&1
+    tectonic -o build ${TECTONIC_SEARCH_FLAGS} "$file" 2>&1
     local exitCode=$?
     if [ $exitCode -eq 0 ]; then
         echo "Successfully compiled ${basename}"

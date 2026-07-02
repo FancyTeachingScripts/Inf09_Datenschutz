@@ -9,7 +9,7 @@ Write-Host "Found $($texFiles.Count) TeX files to compile in parallel..." -Foreg
 $processes = @()
 foreach ($file in $texFiles) {
     Write-Host "Compiling $($file.Name) with tectonic..." -ForegroundColor Yellow
-    $process = Start-Process -FilePath "tectonic" -ArgumentList "-o", ".", $file.FullName -PassThru -NoNewWindow -Wait:$false
+    $process = Start-Process -FilePath "tectonic" -ArgumentList "-o", ".", "-Z", "search-path=.", "-Z", "search-path=sty", $file.FullName -PassThru -NoNewWindow -Wait:$false
     $processes += @{Process=$process; FileName=$file.Name}
 }
 

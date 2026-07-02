@@ -7,8 +7,15 @@
             "command": "/bin/bash",
             "args": [
                 "-c",
-                "mkdir -p build && tectonic -o build main.tex"
+                "mkdir -p build && tectonic -o build -Z search-path=. -Z search-path=sty main.tex"
             ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-Command",
+                    "if (!(Test-Path build)) { New-Item -ItemType Directory -Path build | Out-Null }; tectonic -o build -Z search-path=. -Z search-path=sty main.tex"
+                ]
+            },
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -27,6 +34,15 @@
             "args": [
                 ".vscode/build-parallel.sh"
             ],
+            "windows": {
+                "command": "powershell",
+                "args": [
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    ".vscode/build-parallel.ps1"
+                ]
+            },
             "group": "build",
             "presentation": {
                 "echo": true,

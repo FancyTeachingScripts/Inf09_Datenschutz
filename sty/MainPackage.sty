@@ -2,6 +2,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{sty/MainPackage}[]
+\PassOptionsToPackage{dvipsnames}{xcolor}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -204,7 +205,7 @@
 % Documentenklasse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ifbeamer
-  \documentclass[aspectratio=169]{beamer}
+  \documentclass[aspectratio=169,xcolor=dvipsnames]{beamer}
 \else
   \documentclass[a4paper]{article}
 \fi 

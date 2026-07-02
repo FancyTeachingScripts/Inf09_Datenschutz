@@ -16,3 +16,5 @@ main.toc
 main.pdf
 
 main/pdfs/
+
+build/
