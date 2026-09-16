@@ -6,26 +6,13 @@
             "type": "shell",
             "command": "tectonic",
             "args": [
-                "-o",
-                "build",
-                "-Z",
-                "search-path=.",
-                "-Z",
-                "search-path=sty",
+                "-Z", "search-path=.",
+                "-Z", "search-path=template",
+                "-Z", "search-path=template/sty/moloch",
+                "-Z", "continue-on-errors",
+                "-o", "build",
                 "main.tex"
             ],
-            "windows": {
-                "command": "tectonic",
-                "args": [
-                    "-o",
-                    "build",
-                    "-Z",
-                    "search-path=.",
-                    "-Z",
-                    "search-path=sty",
-                    "main.tex"
-                ]
-            },
             "group": "build",
             "presentation": {
                 "echo": true,
@@ -33,24 +20,50 @@
                 "focus": false,
                 "panel": "shared"
             },
-            "problemMatcher": [
-                "$latex"
-            ]
+            "problemMatcher": []
+        },
+        {
+            "label": "compile-single-tex (draft, ~3x faster)",
+            "type": "shell",
+            "command": "tectonic",
+            "args": [
+                "-Z", "search-path=.",
+                "-Z", "search-path=template",
+                "-Z", "search-path=template/sty/moloch",
+                "-Z", "continue-on-errors",
+                "-r", "0",
+                "-o", "build",
+                "main.tex"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
         },
         {
             "label": "build-all-main-tex",
             "type": "shell",
-            "command": "/bin/bash",
-            "args": [
-                ".vscode/build-parallel.sh"
-            ],
             "windows": {
                 "command": "powershell",
                 "args": [
-                    "-ExecutionPolicy",
-                    "Bypass",
-                    "-File",
-                    ".vscode/build-parallel.ps1"
+                    "-ExecutionPolicy", "Bypass",
+                    "-File", "${workspaceFolder}/template/tools/build-parallel.ps1"
+                ]
+            },
+            "linux": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build-parallel.sh"
+                ]
+            },
+            "osx": {
+                "command": "bash",
+                "args": [
+                    "${workspaceFolder}/template/tools/build-parallel.sh"
                 ]
             },
             "group": "build",
