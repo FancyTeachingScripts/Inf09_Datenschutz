@@ -25,7 +25,7 @@ jobs:
   release:
     uses: FancyTeachingScripts/FancyScript/.github/workflows/release.yml@main
     with:
-      website_path: inf09_datenschutz
+      website_path: ${{ vars.WEBSITE_PATH }}
       commit_label: Inf09_Datenschutz
     secrets:
       WEBSITE_REPO_TOKEN: ${{ secrets.WEBSITE_REPO_TOKEN }}
